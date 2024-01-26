@@ -8,7 +8,8 @@ const app = express();
 const { error_s, info, warn } = require("./logger/logger");
 
 const { mongoUrl, port } = require("../config/defualts");
-
+const UserRoute = require("../src/models/Users.routes");
+// const MessageRoute = require("../src/models/Message.model")
 mongoose
   .connect(mongoUrl)
   .then(() => {
@@ -54,6 +55,10 @@ const StartServer = () => {
   app.get("/healthCheck", (req, res, next) => {
     res.sendStatus(200);
   });
+
+  app.use("/api/user", UserRoute);
+  // app.use("/api/messages", MessageRoute)
+
   /**
    * Error handling
    */
